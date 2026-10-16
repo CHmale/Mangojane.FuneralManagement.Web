@@ -1,0 +1,48 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.Policy
+@{
+    ViewData["Title"] = "Policies & Payments";
+    ViewData["PageHeading"] = "Policies & Premium Payments";
+    ViewData["PageSubheading"] = "Search burial society policies and manage premium payment records.";
+    var payments = ViewBag.Payments as List<Mangojane.FuneralManagement.Web.Models.PolicyPayment> ?? new();
+}
+
+<div class="card-custom p-4 mb-4">
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-8">
+            <input type="text" name="search" class="form-control form-control-lg" placeholder="Search Client name or policy number..." value="@Model?.PolicyNumber" />
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-dark w-100 py-2">Search Policy</button>
+        </div>
+    </form>
+
+    @if (Model != null)
+    {
+        <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-2">POLICY @Model.PolicyNumber</h5>
+                    <div>Client: @Model.ClientName</div>
+                    <div>Plan: @Model.PlanType • R@(Model.MonthlyPremium)/month</div>
+                    <div>Status: <span class="badge bg-success">@Model.Status</span></div>
+                </div>
+                <a href="@Url.Action("RecordPayment", "Policies", new { policyNumber = Model.PolicyNumber })" class="btn btn-dark">Record Payment</a>
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <h6 class="fw-bold mb-2">Payment Records</h6>
+                <table class="table table-sm">
+                    <thead>
+                        <tr class="text-muted small"><th>Ref</th><th>Amount</th><th>Date</th><th>Method</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in payments)
+                        {
+                            <tr><td>@p.ReferenceNumber</td><td class="text-success fw-bold">R @p.Amount</td><td>@p.PaymentDate.ToString("dd MMM yyyy")</td><td>@p.PaymentMethod</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

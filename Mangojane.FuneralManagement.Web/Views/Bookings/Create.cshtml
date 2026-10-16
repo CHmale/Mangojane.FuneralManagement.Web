@@ -1,0 +1,66 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.Booking
+@{
+    ViewData["Title"] = "New Walk-in Booking";
+    ViewData["PageHeading"] = "Create Walk-in Booking";
+    ViewData["PageSubheading"] = "Enter funeral booking details for walk-in clients directly at the parlour.";
+}
+
+<div class="card-custom p-4" style="max-width: 700px;">
+    <form method="post" asp-action="Create">
+        <input type="hidden" asp-for="BookingId" />
+        <input type="hidden" asp-for="Status" />
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Client Full Name</label>
+                <input type="text" asp-for="ClientName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Client Contact Phone</label>
+                <input type="text" asp-for="ClientPhone" class="form-control" placeholder="082 000 0000" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Deceased Full Name</label>
+                <input type="text" asp-for="DeceasedName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Deceased SA ID (13 Digits)</label>
+                <input type="text" asp-for="DeceasedIdNumber" maxlength="13" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Date of Death</label>
+                <input type="date" asp-for="DateOfDeath" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Burial Date</label>
+                <input type="date" asp-for="BurialDate" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Package Plan</label>
+                <select asp-for="PackageName" class="form-select" required>
+                    <option value="Bronce Plan">Bronce Plan (R180/m)</option>
+                    <option value="Silver Plan">Silver Plan (R230/m)</option>
+                    <option value="Golden Plan">Golden Plan (R280/m)</option>
+                    <option value="Platinum Plan">Platinum Plan (R350/m)</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Casket Choice</label>
+                <input type="text" asp-for="CasketModel" class="form-control" value="3-Tier Kiaat/Pine Coffin" required />
+            </div>
+            <div class="col-md-12">
+                <label class="form-label small fw-bold">Collection / Mortuary Pickup Address</label>
+                <input type="text" asp-for="PickupAddress" class="form-control" placeholder="House address or hospital mortuary" required />
+            </div>
+            <div class="col-md-12">
+                <label class="form-label small fw-bold">Cemetery & Grave Plot</label>
+                <input type="text" asp-for="CemeteryName" class="form-control" placeholder="e.g. Welkom Municipal Cemetery (Plot 44-B)" required />
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-dark px-4 py-2" style="background-color: var(--espresso-bronze);">Submit Booking</button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4 py-2 ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

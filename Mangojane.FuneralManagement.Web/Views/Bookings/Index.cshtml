@@ -1,0 +1,50 @@
+﻿@model List<Mangojane.FuneralManagement.Web.Models.Booking>
+@{
+    ViewData["Title"] = "Manage Bookings";
+    ViewData["PageHeading"] = "Manage Bookings";
+    ViewData["PageSubheading"] = "Review, approve, and allocate logistics for client bookings.";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card-custom p-4">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr class="text-muted text-uppercase small">
+                    <th>Ref</th>
+                    <th>Client</th>
+                    <th>Deceased</th>
+                    <th>Burial Date</th>
+                    <th>Package</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.BookingId</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.DeceasedName</td>
+                        <td>@item.BurialDate.ToString("dd MMM yyyy")</td>
+                        <td>@item.PackageName</td>
+                        <td>
+                            <span class="badge @(item.Status == "Approved" ? "bg-success" : "bg-warning text-dark")">@item.Status</span>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Details", "Bookings", new { id = item.BookingId })" class="btn btn-sm btn-dark">View Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

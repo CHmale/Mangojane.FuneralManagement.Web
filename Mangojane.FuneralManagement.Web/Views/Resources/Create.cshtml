@@ -1,0 +1,37 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.VehicleAsset
+@{
+    ViewData["Title"] = "Add New Resource";
+    ViewData["PageHeading"] = "Add New Resource";
+    ViewData["PageSubheading"] = "Register a new funeral vehicle or logistics asset in Supabase.";
+}
+
+<div class="card-custom p-4" style="max-width: 600px;">
+    <form method="post" asp-action="Create">
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Registration Number</label>
+            <input type="text" asp-for="RegistrationNumber" class="form-control" placeholder="e.g. FS 45 JK GP" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Vehicle / Asset Type</label>
+            <select asp-for="VehicleType" class="form-select" required>
+                <option value="Hearse">Hearse</option>
+                <option value="Limousine">Family Limousine</option>
+                <option value="Truck">Equipment / Tent Truck</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Description / Model</label>
+            <input type="text" asp-for="Description" class="form-control" placeholder="e.g. Mercedes-Benz E-Class Hearse 04" required />
+        </div>
+        <div class="mb-4">
+            <label class="form-label small fw-bold">Operational Status</label>
+            <select asp-for="OperationalStatus" class="form-select">
+                <option value="Available">Available</option>
+                <option value="In Maintenance">In Maintenance</option>
+                <option value="Reserved">Reserved</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark px-4 py-2" style="background-color: var(--espresso-bronze);">Save Resource</button>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4 py-2 ms-2">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,83 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["PageHeading"] = "Dashboard";
+    ViewData["PageSubheading"] = "Live overview of funeral operations and client submissions.";
+}
+
+<!-- 4 Key Metric KPI Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card-custom p-4">
+            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Pending Bookings</small>
+            <div class="display-5 fw-bold mt-2">@Model.PendingCount</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-custom p-4">
+            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Approved Bookings</small>
+            <div class="display-5 fw-bold mt-2">@Model.ApprovedCount</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-custom p-4">
+            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Upcoming Funerals</small>
+            <div class="display-5 fw-bold mt-2">@Model.UpcomingCount</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-custom p-4">
+            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Available Resources</small>
+            <div class="display-5 fw-bold mt-2">@Model.ResourceCount</div>
+        </div>
+    </div>
+</div>
+
+<!-- Live Bookings from Mobile App -->
+<div class="card-custom p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0">Recent Client Bookings (Live from Supabase)</h5>
+        <a href="@Url.Action("Index", "Bookings")" class="btn btn-sm btn-outline-dark"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted text-uppercase small">
+                    <th>Reference</th>
+                    <th>Client</th>
+                    <th>Deceased</th>
+                    <th>Burial Date</th>
+                    <th>Package</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in Model.RecentBookings)
+                {
+                    <tr>
+                        <td class="fw-bold">@b.BookingId</td>
+                        <td>@b.ClientName</td>
+                        <td>@b.DeceasedName</td>
+                        <td>@b.BurialDate.ToString("dd MMM yyyy")</td>
+                        <td>@b.PackageName</td>
+                        <td>
+                            @if (b.Status == "Approved")
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success px-2 py-1">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning-subtle text-warning border border-warning px-2 py-1">Pending</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Bookings")" class="btn btn-mangojane">View All Bookings</a>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.ResourceAllocationViewModel
+@{
+    ViewData["Title"] = "Resource Allocation";
+    ViewData["PageHeading"] = "Resource Allocation";
+    ViewData["PageSubheading"] = "Assign available Mangojane resources to an approved funeral.";
+}
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger mb-4">
+        <i class="bi bi-exclamation-octagon-fill me-2"></i> @Model.ErrorMessage
+    </div>
+}
+
+<div class="card-custom p-4">
+    <form method="post" asp-action="Allocate">
+        <input type="hidden" asp-for="BookingId" />
+        <input type="hidden" asp-for="DeceasedName" />
+        <input type="hidden" asp-for="BurialDate" />
+        <input type="hidden" asp-for="Location" />
+        <input type="hidden" asp-for="PackageName" />
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Select Hearse</label>
+                <select asp-for="SelectedHearseId" class="form-select form-select-lg" required>
+                    <option value="">-- Available Hearse Fleet --</option>
+                    @foreach (var h in Model.AvailableHearses)
+                    {
+                        <option value="@h.VehicleId">@h.Description (@h.RegistrationNumber)</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Select Driver</label>
+                <select asp-for="SelectedDriver" class="form-select form-select-lg" required>
+                    <option value="">-- Available Staff Drivers --</option>
+                    @foreach (var d in Model.AvailableDrivers)
+                    {
+                        <option value="@d">@d</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label small fw-bold">Equipment & Tents</label>
+                <input type="text" asp-for="EquipmentDetails" class="form-control form-control-lg" />
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-mangojane px-4 py-2">Save Allocation</button>
+            <a href="@Url.Action("Details", "Bookings", new { id = Model.BookingId })" class="btn btn-outline-secondary px-4 py-2 ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

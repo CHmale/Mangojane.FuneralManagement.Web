@@ -1,0 +1,26 @@
+﻿@model List<Mangojane.FuneralManagement.Web.Models.Booking>
+@{
+    ViewData["Title"] = "Daily Schedule";
+    ViewData["PageHeading"] = "Daily Dispatch Schedule";
+    ViewData["PageSubheading"] = "Daily route sheet for mortuary drivers and funeral crews.";
+}
+
+<div class="card-custom p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">Mortuary & Fleet Route Sheet (@DateTime.Today.ToString("dd MMMM yyyy"))</h5>
+        <button onclick="window.print();" class="btn btn-sm btn-outline-dark"><i class="bi bi-printer me-1"></i> Print / Export PDF</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-dark">
+                <tr><th>Ref</th><th>Deceased Name</th><th>Burial Date</th><th>Pickup Address</th><th>Cemetery</th><th>Assigned Hearse</th><th>Driver</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var b in Model.Where(b => b.Status == "Approved"))
+                {
+                    <tr><td>@b.BookingId</td><td>@b.DeceasedName</td><td>@b.BurialDate.ToString("dd MMM yyyy")</td><td>@b.PickupAddress</td><td>@b.CemeteryName</td><td>@b.HearseAssigned</td><td>@b.DriverAssigned</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register Staff Account";
+}
+
+<div class="container-fluid p-0" style="min-height: 100vh;">
+    <div class="row g-0" style="min-height: 100vh;">
+        <!-- Left Brand Panel -->
+        <div class="col-md-5 d-flex flex-column justify-content-between p-5" style="background-color: var(--obsidian-black); color: white;">
+            <div>
+                <div class="d-flex align-items-center mb-4">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--bright-gold); background: #000; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                        <i class="bi bi-shield-fill" style="color: var(--bright-gold); font-size: 24px;"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 fw-bold" style="color: var(--mangojane-gold); letter-spacing: 2px;">MANGOJANE</h4>
+                        <small style="color: #9C948D;">STAFF MANAGEMENT PORTAL</small>
+                    </div>
+                </div>
+                <p class="fst-italic text-white-50">"With Dignity, Always"</p>
+            </div>
+            <div>
+                <small class="text-uppercase text-muted" style="letter-spacing: 1px;">Admin & Dispatch Account Creation</small>
+            </div>
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="col-md-7 d-flex align-items-center justify-content-center p-5" style="background-color: var(--warm-parchment);">
+            <div style="max-width: 460px; width: 100%;">
+                <h3 class="fw-bold mb-2">Register Staff Account</h3>
+                <p class="text-muted mb-4">Create your authorized Mangojane administrator profile.</p>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger py-2 mb-3">@ViewBag.Error</div>
+                }
+
+                <form method="post" asp-action="Register">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Full Name</label>
+                        <input type="text" name="fullName" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Staff Email Address</label>
+                        <input type="email" name="email" class="form-control" required />
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Phone Number</label>
+                            <input type="text" name="phone" class="form-control" placeholder="082 000 0000" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Branch</label>
+                            <select name="branch" class="form-select">
+                                <option value="Thabong (Welkom)">Thabong (Welkom)</option>
+                                <option value="Wesselsbron">Wesselsbron</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Password</label>
+                        <input type="password" name="password" class="form-control" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Confirm Password</label>
+                        <input type="password" name="confirmPassword" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100 py-3 fw-bold" style="background-color: var(--obsidian-black);">
+                        Register Account
+                    </button>
+                    <div class="text-center mt-3">
+                        <a href="@Url.Action("Login")" class="text-dark small fw-semibold">Already have an account? Sign In</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

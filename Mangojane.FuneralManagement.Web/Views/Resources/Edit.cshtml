@@ -1,0 +1,34 @@
+﻿@model Mangojane.FuneralManagement.Web.Models.VehicleAsset
+@{
+    ViewData["Title"] = "Edit Resource";
+    ViewData["PageHeading"] = "Edit Resource Status";
+    ViewData["PageSubheading"] = $"Modify details for asset {Model.RegistrationNumber}.";
+}
+
+<div class="card-custom p-4" style="max-width: 600px;">
+    <form method="post" asp-action="Edit">
+        <input type="hidden" asp-for="VehicleId" />
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Registration Number</label>
+            <input type="text" asp-for="RegistrationNumber" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Asset Type</label>
+            <input type="text" asp-for="VehicleType" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-bold">Description</label>
+            <input type="text" asp-for="Description" class="form-control" required />
+        </div>
+        <div class="mb-4">
+            <label class="form-label small fw-bold">Operational Status</label>
+            <select asp-for="OperationalStatus" class="form-select">
+                <option value="Available">Available</option>
+                <option value="In Maintenance">In Maintenance</option>
+                <option value="In Service">In Service</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark px-4 py-2" style="background-color: var(--espresso-bronze);">Update Resource</button>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4 py-2 ms-2">Cancel</a>
+    </form>
+</div>
